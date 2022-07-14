@@ -1,8 +1,10 @@
 ## Introduction
 
-Homely is Laravel development environment for WSL (Windows Subsystem for Linux), is based in Laravel/Homestead and reuses his ruby sites scripts and features. Homely aims to provide as Homestead the same `wonderful development environment without requiring you to install PHP, a web server, and any other server software on your local machine`, but over WSL2 in Windows 10/11.
+Homely is Laravel development environment for WSL (Windows Subsystem for Linux) and Linux, is based in Laravel/Homestead and reuses his ruby sites scripts and features. Homely aims to provide as Homestead the same `wonderful development environment without requiring you to install PHP, a web server, and any other server software on your local machine`, but over WSL2 in Windows 10/11.
 
 ## Installation
+
+If your working environment is Linux, you should go directly to step 4. Steps 1 to 3 are for WSL2.
 
 1. Open PowerShell as admin and install WSL2
 
@@ -14,16 +16,15 @@ PS> dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /n
 
 2. In Microsoft Store app, search for 'Ubuntu 20.04' and install it, then restart windows.
 
-3. Set WSL default version
+3. Set WSL default version, and run WSL2
 ```
 PS> wsl --set-default-version 2
 PS> wsl --list --verbose
-
-```
-
-4. Run the WSL and install Ruby
-```
 PS> wsl
+```
+
+4. Install Ruby
+```
 $ sudo apt update
 $ sudo apt install ruby-full
 $ ruby --version
