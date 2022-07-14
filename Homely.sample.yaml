@@ -1,0 +1,19 @@
+---
+box: laravel/homely
+provider: wsl2
+php: 8.1 # Default php-cli version
+
+sites:
+    - map: homely.test
+      to: /home/user/projects/wonderful-project1/public
+      type: laravel # site-type from the listed sites typoes in "scripts/site-types" folder
+      php: "8.1" # php-fpm version for current site
+
+    - map: myangulapapp.test
+      to: "4200"
+      type: proxy
+
+features: # Features available in "scripts/features" folder
+    - mysql8: true
+    - nginx: true
+    - redis: true
