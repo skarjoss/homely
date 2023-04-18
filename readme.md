@@ -84,4 +84,4 @@ SSL certs are installed automatically.
 
 * Slow http serving, or slow file readings: Your code must be located inside WSL machine folder, not in windows host folder, you can access guest WSL folders in your explorer folder with `\\wsl$\Ubuntu-20.04\home`
 * Slow code editing when using VsCode: You must use the `Remote - WSL` extension for VsCode
-* Slow git read/write: Since your code is inside WSL folder, it is recommended to use a git application installed in WSL machine, for example [Github Desktop for Linux](https://github.com/shiftkey/desktop).
+* Slow git read/write: Your code must be located inside WSL machine folder, and your git tool must access the files inside WSL, you can use for example VSCode with Git WSL [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph) and [Gitlens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens).
