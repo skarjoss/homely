@@ -12,4 +12,4 @@ fi
 apt-get install -y redis-server
 sed -i 's/bind 127.0.0.1/bind 0.0.0.0/' /etc/redis/redis.conf
 service redis-server restart
-systemctl enable redis-server yes '' | pecl install -f redis
+systemctl enable redis-server | pecl install -f redis

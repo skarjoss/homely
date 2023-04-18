@@ -10,6 +10,6 @@ fi
 
 # Install & Configure Redis Server
 apt-get remove --purge -y nginx nginx-full nginx-common
-apt-get install -y --force-yes nginx
+apt-get install -y --force-yes nginx imagemagick
 service nginx restart
 systemctl enable nginx.service
