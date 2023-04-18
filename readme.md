@@ -75,7 +75,7 @@ You must add the sites "domains" to the `hosts` file on your host windows machin
 
 Make sure the IP address is always 127.0.0.1. Once you have added the domain to your hosts file and executeted `homely` in WSL terminal, you will be able to access the site via your web browser:
 ```
-http://homestead.test
+https://homely.test
 ```
 
 SSL certs are installed automatically.
