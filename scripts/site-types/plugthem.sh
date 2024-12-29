@@ -37,6 +37,33 @@ location /xhgui {
 else configureXhgui=""
 fi
 
+if [ -n "${12}" ] && [ -n "${13}" ]
+then 
+    if ! [[ "${13}" =~ ^[0-9]+$ ]]
+    then
+        proxyPass1="
+        proxy_pass ${13};
+        "
+    else proxyPass1="
+        proxy_pass http://127.0.0.1:${13};
+        "
+    fi
+    configurePath1="
+        location /${12}/ {
+                proxy_set_header X-Real-IP \$remote_addr;
+                proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                proxy_set_header Upgrade \$http_upgrade;
+                proxy_set_header Connection "upgrade";
+                proxy_set_header Host \$host;
+                proxy_http_version 1.1;
+                $proxyPass1
+                $headersTXT
+                $paramsTXT
+            }
+        "
+else configurePath1=""
+fi
+
 case "$1" in 
   *voc* | *cx* | *test*)
         configureVocNSmartLink="
@@ -52,6 +79,20 @@ case "$1" in
         
         root \"$2\";
         try_files \$uri \$uri/ /nsmartlink/index.html;
+    }
+    
+    location ~ ^/surveysmanagement/(.*)$ {
+        # kill cache
+        add_header Last-Modified \$date_gmt;
+        add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+        if_modified_since off;
+        expires off;
+        etag off;
+        proxy_no_cache 1; # don't cache it
+        proxy_cache_bypass 1; # even if cached, don't try to use it
+        
+        root \"$2\";
+        try_files \$uri \$uri/ /surveysmanagement/index.html;
     }
     
     location ~ ^/smartlink/(.*)$ {
@@ -103,6 +144,8 @@ block="server {
     }
 
     $configureXhgui
+    
+    $configurePath1
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }

@@ -4,7 +4,7 @@ if [ -f /etc/init.d/docker* ];
 then
     echo "Docker already installed"
     docker --version
-    service docker restart
+    sudo service docker start
     exit 0
 fi
 

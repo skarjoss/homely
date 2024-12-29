@@ -21,7 +21,7 @@ fi
 
 if [ -n "$2" ]
 then
-    if ! [[ "$2" =~ ^[0-9]+$ ]]
+    if ! [[ "$2" =~ ^-?[0-9]+$ ]]
     then
         proxyPass="
         proxy_pass ${2};
