@@ -118,7 +118,10 @@ class Homely
             site['xhgui'] ||= '',       # $7
             site['exec'] ||= 'false',   # $8
             headers ||= '',             # $9
-            rewrites ||= ''             # $10
+            rewrites ||= '',            # $10
+            site['api'] ||= '',         # $11
+            site['path1'] ||= '',       # $12
+            site['proxy1'] ||= ''       # $13
         ]
         config.shell.provision name, type: "file", path: path, args: args
 
