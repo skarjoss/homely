@@ -38,6 +38,11 @@ $ cd ~/homely
 $ bash init.sh
 ```
 
+6. Reload the terminal
+```
+$ source ~/.bash_profile
+```
+
 ## Configuring Homely
 
 ### Configuring Nginx Sites
@@ -47,7 +52,19 @@ Edit the file `Homely.yaml`, a sample site configuration is already included, yo
 ```
 sites:
     - map: homely.test
+      type: laravel
       to: /home/youruser/project1/public
+      php: "8.4"
+
+    - map: ng-web.test
+      type: proxy
+      to: "4200"
+
+    - map: full-stack-web.test
+      type: proxystack
+      to: "5173"
+      api: /home/youruser/project1/public
+      php: "8.4"
 ```
 
 ### Installing Optional Features
@@ -57,13 +74,12 @@ Software is installed using the `features` option within your `Homely.yaml` file
 ```
 features:
     - mysql8: true
+    - postgres: true
     - nginx: true
     - redis: true
 ```
 
-If you change the sites and features property, you should execute homely with `sudo ruby ~/homely/Homelyfile.rb` in your terminal to update the Nginx configuration on WSL. Sudo is requiered since it will automatically install features (mysql, php, redis, etc).
-
-To ease the execution of homely, you should add an alias to your bash terminal with `vi ~/.bashrc` and add a line with `alias homely="sudo ruby ~/homely/Homelyfile.rb"`, then update with `source ~/.bashrc`, now you can simply execute `homely` in your terminal to update the configuration after adding new sites or features.
+If you change the sites and features property, you should execute homely with `sudo homely` in your terminal to update the Nginx configuration on WSL. Sudo is requiered since it will automatically install features (mysql, php, redis, etc).
 
 ## Hostname Resolution
 
@@ -71,6 +87,8 @@ You must add the sites "domains" to the `hosts` file on your host windows machin
 
 ```
 127.0.0.1  homely.test
+127.0.0.1  ng-web.test
+127.0.0.1  full-stack-web.test
 ```
 
 Make sure the IP address is always 127.0.0.1. Once you have added the domain to your hosts file and executeted `homely` in WSL terminal, you will be able to access the site via your web browser:
@@ -80,8 +98,8 @@ https://homely.test
 
 SSL certs are installed automatically.
 
-## Known issues
+## Known issues and workarounds
 
-* Slow http serving, or slow file readings: Your code must be located inside WSL machine folder, not in windows host folder, you can access guest WSL folders in your explorer folder with `\\wsl$\Ubuntu-20.04\home`
+* Slow http serving, or slow file readings: Your code must be located inside WSL machine folder, not in windows host folder, you can access guest WSL folders in your explorer folder with `\\wsl$\Ubuntu-24.04\home`
 * Slow code editing when using VsCode: You must use the `Remote - WSL` extension for VsCode
 * Slow git read/write: Your code must be located inside WSL machine folder, and your git tool must access the files inside WSL, you can use for example VSCode with Git WSL [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph) and [Gitlens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens).
