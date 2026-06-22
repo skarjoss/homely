@@ -14,12 +14,20 @@ class Homely
 
       #config.shell.provision "apt_update", type: "inline", inline: "apt-get update"
 
-      # Ensure we have PHP versions used in sites in our features
+      # Ensure each PHP version used by sites is provisioned only once.
       if settings.has_key?('sites')
+        php_features = {}
+
         settings['sites'].each do |site|
-          if site.has_key?('php')
-            settings['features'].push({"php" + site['php'] => true})
-          end
+          next unless site.has_key?('php')
+
+          php_features["php" + site['php']] = true
+        end
+
+        php_features.each do |feature_name, enabled|
+          next if settings['features'].any? { |feature| feature.has_key?(feature_name) }
+
+          settings['features'].push({feature_name => enabled})
         end
       end
 

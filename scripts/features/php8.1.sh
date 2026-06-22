@@ -12,7 +12,6 @@ export DEBIAN_FRONTEND=noninteractive
 if [ -f /home/$WSL_USER_NAME/.homely-features/php81 ]
 then
    echo "PHP 8.1 already installed."
-   service php8.1-fpm restart
    exit 0
 fi
 

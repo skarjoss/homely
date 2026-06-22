@@ -12,7 +12,6 @@ export DEBIAN_FRONTEND=noninteractive
 if [ -f /home/$WSL_USER_NAME/.homely-features/php83 ]
 then
    echo "PHP 8.3 already installed."
-   service php8.3-fpm restart
    exit 0
 fi
 

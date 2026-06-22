@@ -12,7 +12,6 @@ export DEBIAN_FRONTEND=noninteractive
 if [ -f /home/$WSL_USER_NAME/.homely-features/php82 ]
 then
    echo "PHP 8.2 already installed."
-   service php8.2-fpm restart
    exit 0
 fi
 

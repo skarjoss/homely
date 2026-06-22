@@ -13,7 +13,6 @@ export DEBIAN_FRONTEND=noninteractive
 if [ -f /home/$WSL_USER_NAME/.homely-features/php73 ]
 then
     echo "PHP 7.3 already installed."
-    service php7.3-fpm restart
     exit 0
 fi
 
